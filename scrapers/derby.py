@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from cantools.util import log, getcsvmod
 from model import db, Race
 
@@ -18,8 +19,12 @@ def scrape():
             if not race:
                 log("no record of %s -- creating one"%(draw,), 3)
                 race = Race(draw_num=draw)
+                log("data: %s"%(row,), 4)
                 for index, data in enumerate(row[1:]):
-                    setattr(race, keys[index], data)
+                    k = keys[index + 1]
+                    if k == "draw_date":
+                      data = datetime.strptime(data, "%a. %b %d, %Y")
+                    setattr(race, k, data)
                 races[draw] = race
     puts = races.values()
     log("putting %s races"%(len(puts),), 1)
