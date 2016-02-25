@@ -1,0 +1,10 @@
+CT
+build
+dist
+*.egg-info
+*.pyc
+*~
+.DS_Store
+ct.css
+*.swp
+.ctp
