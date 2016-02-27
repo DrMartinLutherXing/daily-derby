@@ -7,6 +7,9 @@
 - url: /load
   script: load.py
 
+- url: /cron
+  script: cron.py
+
 ## MODE SWITCHING -- DON'T MESS WITH (unless you know what you're doing)!
 # START mode: dynamic
 - url: /js
