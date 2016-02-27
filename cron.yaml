@@ -1,0 +1,4 @@
+cron:
+- description: get new races
+  url: /cron
+  schedule: every 24 hours
