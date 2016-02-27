@@ -1,9 +1,20 @@
-import os
+import os, re
 from datetime import datetime
 from cantools.util import log, getcsvmod
 from model import db, Race
 
 races = {}
+
+def parse():
+    ifile = open(os.path.join('scrapers', 'data', 'DownloadAllNumbers.txt'))
+    ofile = open(os.path.join('scrapers', 'data', 'DerbyData.csv'), 'w')
+
+    ofile.writelines('draw_num,draw_date,win_num,win_name,place_num,place_name,show_num,show_name,race_time\n')
+    for i in range(5): ifile.next()
+    for line in ifile:
+        line = re.sub(r'\s{2,15}', r',', line)
+        line = re.sub(r'(\w{3}\.\s\w{3}\s\d{2},\s\d{4})',r'"\1"',line)
+        ofile.writelines(line[:-1] + '\n')
 
 def scrape():
     dp = os.path.join("scrapers", "data", "DerbyData.csv")
@@ -30,3 +41,4 @@ def scrape():
     log("putting %s races"%(len(puts),), 1)
     db.put_multi(puts)
     log("finished!", 1)
+
