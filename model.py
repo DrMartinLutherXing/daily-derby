@@ -14,6 +14,7 @@ class Race(db.ModelBase):
     def data(self):
         return {
             "key": self.key.urlsafe(),
+            "draw_date": str(self.draw_date),
             "draw_num": self.draw_num,
             "win_num": self.win_num,
             "win_name": self.win_name,
